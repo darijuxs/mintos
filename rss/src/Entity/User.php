@@ -5,7 +5,6 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -26,15 +25,11 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      *
-     * @Assert\NotBlank()
-     *
      * @var string
      */
     private $email;
 
     /**
-     * @Assert\NotBlank()
-     *
      * @var string
      */
     private $plainPassword;
@@ -84,7 +79,7 @@ class User implements UserInterface, \Serializable
     /**
      * @return string
      */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -112,7 +107,7 @@ class User implements UserInterface, \Serializable
     /**
      * @return string
      */
-    public function getPlainPassword()
+    public function getPlainPassword(): string
     {
         return $this->plainPassword;
     }
@@ -168,7 +163,7 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     *
+     * @return void
      */
     public function eraseCredentials(): void
     {

@@ -116,7 +116,6 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
 
         if (!$user) {
-            // fail authentication with a custom error
             throw new CustomUserMessageAuthenticationException('Email could not be found.');
         }
 
@@ -127,9 +126,9 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
      * @param mixed $credentials
      * @param UserInterface $user
      *
-     * @return bool|void
+     * @return bool
      *
-     * @throws \Exception
+     * @throws BadCredentialsException
      */
     public function checkCredentials($credentials, UserInterface $user)
     {
@@ -166,7 +165,9 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     }
 
     /**
-     * Tells Symfony to use this provider for this User class.
+     * @param $class
+     *
+     * @return bool
      */
     public function supportsClass($class)
     {
