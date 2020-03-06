@@ -5,7 +5,7 @@
 {% block body %}
     <h1 class="h3 mb-3 font-weight-normal">Registration</h1>
 
-    {{ form_start(registrationForm) }}
+    {{ form_start(registrationForm, {'attr': {'id': 'registrationFrom'}}) }}
 
     <div class="form-error">{{ form_errors(registrationForm.email) }}</div>
     <label for="registration_form_email">{{ form_label(registrationForm.email) }}</label><br/>
@@ -23,4 +23,48 @@
 
     {{ form_end(registrationForm) }}
 
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="application/javascript">
+        $(document).ready(function () {
+            $("#registrationFrom").validate({
+                rules: {
+                    "registration_form[email]": {
+                        required: true,
+                        email: true,
+                        remote: {
+                            url: "/check-email",
+                            type: "POST",
+                        }
+                    },
+                    "registration_form[plainPassword][first]": {
+                        required: true,
+                        minlength: 6,
+                    },
+                    "registration_form[plainPassword][second]": {
+                        required: true,
+                        minlength: 6,
+                        equalTo: "#registration_form_plainPassword_first",
+                    },
+                },
+                messages: {
+                    "registration_form[email]": {
+                        required: "Value is required",
+                        email: "Enter valid email address"
+                    },
+                    "registration_form[plainPassword][first]": {
+                        required: "Value is required",
+                        minlength: "Password is too short. Minimum 6 characters required"
+                    },
+                    "registration_form[plainPassword][second]": {
+                        required: "Value is required",
+                        minlength: "Password is too short. Minimum 6 characters required",
+                        equalTo: "Passwords do not match"
+                    },
+                }
+            });
+        });
+    </script>
 {% endblock %}

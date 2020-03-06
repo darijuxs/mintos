@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -56,5 +58,33 @@ class RegistrationController extends AbstractController
                 'registrationForm' => $form->createView(),
             ]
         );
+    }
+
+    /**
+     * @Route("/check-email", name="registration_check_eamil", methods={"POST"})
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     *
+     * @return JsonResponse
+     */
+    public function checkEmail(Request $request, EntityManagerInterface $entityManager): JsonResponse
+    {
+        $registrationFrom = $request->get('registration_form');
+        $email = $registrationFrom['email'] ?? null;
+
+        if (!$email) {
+            return $this->json(['Value is required']);
+        }
+
+        $emailEntity = $entityManager
+            ->getRepository(User::class)
+            ->findOneBy(['email' => $email]);
+
+        if ($emailEntity) {
+            return $this->json(['Email already registered']);
+        }
+
+        return $this->json(true);
     }
 }
