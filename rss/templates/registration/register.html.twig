@@ -8,15 +8,15 @@
     {{ form_start(registrationForm, {'attr': {'id': 'registrationFrom'}}) }}
 
     <div class="form-error">{{ form_errors(registrationForm.email) }}</div>
-    <label for="registration_form_email">{{ form_label(registrationForm.email) }}</label><br/>
+    <label for="registration_form_email">Email</label><br/>
     {{ form_widget(registrationForm.email) }}<br/>
 
     <div class="form-error">{{ form_errors(registrationForm.plainPassword.first) }}</div>
-    <label for="registration_form_plainPassword_first">{{ form_label(registrationForm.plainPassword.first) }}</label><br/>
+    <label for="registration_form_plainPassword_first">Password</label><br/>
     {{ form_widget(registrationForm.plainPassword.first) }}<br/>
 
     <div class="form-error">{{ form_errors(registrationForm.plainPassword.second) }}</div>
-    <label for="registration_form_plainPassword_second">{{ form_label(registrationForm.plainPassword.second) }}</label><br/>
+    <label for="registration_form_plainPassword_second">Repeat password</label><br/>
     {{ form_widget(registrationForm.plainPassword.second) }}<br/>
 
     <button class="btn btn-lg btn-primary" type="submit">Register</button>

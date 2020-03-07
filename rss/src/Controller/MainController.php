@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\Rss\RssFeed;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,10 +27,18 @@ class MainController extends AbstractController
     /**
      * @Route("/rss", name="main_rss_list")
      *
+     * @param RssFeed $rssFeed
+     *
      * @return Response
      */
-    public function rssList(): Response
+    public function rssList(RssFeed $rssFeed): Response
     {
-        return $this->render('main/rss.html.twig');
+        $feed = $rssFeed->getFeed();
+
+        return $this->render('main/rss.html.twig',
+            [
+                'feedEntries' => $feed->getEntries(),
+            ]
+        );
     }
 }
