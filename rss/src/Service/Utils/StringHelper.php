@@ -17,8 +17,11 @@ class StringHelper
         '/<\/h4>/',
         '/<p>/',
         '/<\/p>/',
+        '/<strong>/',
+        '/<\/strong>/',
         '/<a(.*?)href="(.*?)">(.*?)<\/a>/',
-        '/[^A-Za-z\- ]/',
+        '/<!--(.*?)-->/',
+        '/[^A-Za-z ]/',
     ];
 
 
@@ -34,5 +37,15 @@ class StringHelper
         }
 
         return preg_replace('/\s+/', ' ', $string);
+    }
+
+    /**
+     * @param string $string
+     *
+     * @return array
+     */
+    public function splitWords(string $string): array
+    {
+        return explode(' ', trim($string));
     }
 }

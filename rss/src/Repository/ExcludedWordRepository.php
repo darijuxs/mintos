@@ -23,4 +23,15 @@ class ExcludedWordRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, ExcludedWord::class);
     }
+
+    /**
+     * @return array
+     */
+    public function getExcludedWords(): array
+    {
+        return $this->createQueryBuilder('ew')
+            ->select('ew.value')
+            ->getQuery()
+            ->getArrayResult();
+    }
 }

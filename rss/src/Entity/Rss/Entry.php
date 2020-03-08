@@ -37,6 +37,11 @@ class Entry
     /**
      * @var string
      */
+    private $originalTitle;
+
+    /**
+     * @var string
+     */
     private $summary;
 
     /**
@@ -140,6 +145,26 @@ class Entry
     public function setTitle(string $title): Entry
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOriginalTitle(): string
+    {
+        return $this->originalTitle;
+    }
+
+    /**
+     * @param string $originalTitle
+     *
+     * @return Entry
+     */
+    public function setOriginalTitle(string $originalTitle): Entry
+    {
+        $this->originalTitle = $originalTitle;
 
         return $this;
     }

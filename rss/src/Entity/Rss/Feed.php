@@ -2,6 +2,8 @@
 
 namespace App\Entity\Rss;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * Class Feed
  *
@@ -53,7 +55,15 @@ class Feed
     /**
      * @var Entry[]
      */
-    private $entries = [];
+    private $entries;
+
+    /**
+     * Feed constructor.
+     */
+    public function __construct()
+    {
+        $this->entries = new ArrayCollection();
+    }
 
     /**
      * @return string
@@ -216,9 +226,9 @@ class Feed
     }
 
     /**
-     * @return Entry[]
+     * @return ArrayCollection
      */
-    public function getEntries(): array
+    public function getEntries(): ArrayCollection
     {
         return $this->entries;
     }
@@ -242,7 +252,7 @@ class Feed
      */
     public function setEntry(Entry $entry): Feed
     {
-        $this->entries[] = $entry;
+        $this->entries->add($entry);
 
         return $this;
     }

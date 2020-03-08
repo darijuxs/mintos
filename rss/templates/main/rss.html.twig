@@ -13,9 +13,15 @@
         <br/><br/>
     {% endif %}
 
+    <h2>
+        {% for word, count in frequentWords %}
+            {{ word|e }} ({{ count }}),
+        {% endfor %}
+    </h2>
+
     {% for entry in feedEntries %}
         <hr>
-        <h3>{{ entry.title|e }}</h3>
+        <h3>{{ entry.originalTitle|e }}</h3>
         <p>{{ entry.originalSummary|raw }}</p>
     {% endfor %}
 

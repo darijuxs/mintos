@@ -34,10 +34,12 @@ class MainController extends AbstractController
     public function rssList(RssFeed $rssFeed): Response
     {
         $feed = $rssFeed->getFeed();
+        $frequentWords = $rssFeed->getFrequentWords($feed);
 
         return $this->render('main/rss.html.twig',
             [
                 'feedEntries' => $feed->getEntries(),
+                'frequentWords' => $frequentWords,
             ]
         );
     }
